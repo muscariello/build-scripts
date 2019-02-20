@@ -26,6 +26,7 @@ cd build
 cmake -D CMAKE_BUILD_TYPE:String="Release" -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
 make package
 make install 
+cd ../..
 
 git clone -b v0.7.7 https://github.com/sysrepo/sysrepo.git
 cp Packaging.cmake PackagingSysRepo.cmake sysrepo/CMakeModules/
