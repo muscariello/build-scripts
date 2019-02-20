@@ -27,7 +27,7 @@ cmake -D CMAKE_BUILD_TYPE:String="Release" -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
 make package
 dpkg -i  libyang_0.16-r2_amd64.deb
 
-git clone -v v0.7.7 https://github.com/sysrepo/sysrepo.git
+git clone -b v0.7.7 https://github.com/sysrepo/sysrepo.git
 cp Packaging.cmake PackagingSysRepo.cmake sysrepo/CMakeModules/
 cd sysrepo; git apply ../sysrepo.diff
 mkdir -p build
