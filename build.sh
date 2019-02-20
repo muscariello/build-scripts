@@ -32,5 +32,5 @@ cp Packaging.cmake PackagingSysRepo.cmake sysrepo/CMakeModules/
 cd sysrepo; git apply ../sysrepo.diff
 mkdir -p build
 cd build
-cmake -D CMAKE_BUILD_TYPE:String="Release" -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
+cmake -D CMAKE_BUILD_TYPE:String="Release" -DCMAKE_INSTALL_PREFIX:PATH=/usr -DBUILD_EXAMPLES:BOOL=FALSE ..
 make package
