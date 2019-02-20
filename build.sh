@@ -25,7 +25,7 @@ mkdir -p build
 cd build
 cmake -D CMAKE_BUILD_TYPE:String="Release" -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
 make package
-dpkg -i install libyang_0.16-r3_amd64.deb
+dpkg -i  libyang_0.16-r3_amd64.deb
 
 git clone -v v0.7.7 https://github.com/sysrepo/sysrepo.git
 cp Packaging.cmake PackagingSysRepo.cmake sysrepo/CMakeModules/
