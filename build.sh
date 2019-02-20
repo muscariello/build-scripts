@@ -21,8 +21,8 @@ apt-get update && apt-get install -y \
 git clone -b v0.16-r2 https://github.com/CESNET/libyang.git
 cp Packaging.cmake PackagingLibYang.cmake libyang/CMakeModules/
 cd libyang; git apply ../libyang.diff
-mkdir build
-cd buil
+mkdir -p build
+cd build
 cmake -D CMAKE_BUILD_TYPE:String="Release" -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
 make package
 dpkg -i install libyang_0.16-r3_amd64.deb
@@ -30,7 +30,7 @@ dpkg -i install libyang_0.16-r3_amd64.deb
 git clone -v v0.7.7 https://github.com/sysrepo/sysrepo.git
 cp Packaging.cmake PackagingSysRepo.cmake sysrepo/CMakeModules/
 cd sysrepo; git apply ../sysrepo.diff
-mkdir build
-cd buil
+mkdir -p build
+cd build
 cmake -D CMAKE_BUILD_TYPE:String="Release" -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
 make package
