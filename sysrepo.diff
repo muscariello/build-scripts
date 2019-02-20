@@ -1,0 +1,11 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index b50df764..c0577bcf 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -355,3 +355,6 @@ if(NOT CALL_TARGET_BINS_DIRECTLY)
+     install(CODE "file(WRITE \"${install_yang_file_name}\" \"${SH_INSTALL_YANG_CMDS}\")")
+     install(CODE "message(STATUS \"Installation commands were written to ${install_yang_file_name}\")")
+ endif()
++include(PackagingSysRepo)
++include(Packaging)
++make_packages()

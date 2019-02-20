@@ -1,0 +1,21 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index dc50dc8d..ff978560 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -281,7 +281,7 @@ find_package(PCRE REQUIRED)
+ include_directories(${PCRE_INCLUDE_DIRS})
+ target_link_libraries(yang ${PCRE_LIBRARIES})
+ 
+-install(TARGETS yang DESTINATION ${CMAKE_INSTALL_LIBDIR})
++install(TARGETS yang DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT libyang)
+ install(FILES ${headers} ${PROJECT_BINARY_DIR}/src/libyang.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/libyang)
+ 
+ find_package(PkgConfig)
+@@ -406,3 +406,7 @@ endif(ENABLE_BUILD_TESTS)
+ if(GEN_LANGUAGE_BINDINGS AND GEN_CPP_BINDINGS)
+     add_subdirectory(swig)
+ endif()
++
++include(PackagingLibYang)
++include(Packaging)
++make_packages()
