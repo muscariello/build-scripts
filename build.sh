@@ -23,7 +23,8 @@ cp Packaging.cmake PackagingLibYang.cmake libyang/CMakeModules/
 cd libyang; git apply ../libyang.diff
 mkdir -p build
 cd build
-cmake -D CMAKE_BUILD_TYPE:String="Release" -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
+cmake -DCMAKE_BUILD_TYPE:String="Release" \
+      -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
 make package
 make install 
 cd ../..
@@ -35,6 +36,7 @@ mkdir -p build
 cd build
 cmake -D CMAKE_BUILD_TYPE:String="Release" \
       -DCMAKE_INSTALL_PREFIX:PATH=/usr \
-    -DBUILD_EXAMPLES:BOOL=FALSE \
-    -DGEN_LANGUAGE_BINDINGS=OFF ..
+      -DBUILD_EXAMPLES:BOOL=FALSE \
+      -DGEN_LANGUAGE_BINDINGS=OFF \
+      -DCALL_TARGET_BINS_DIRECTLY=OFF ..
 make package
