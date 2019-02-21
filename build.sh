@@ -52,4 +52,12 @@ cmake -D CMAKE_BUILD_TYPE:String="Release" \
 make package
 cd../../
 
-git clone https://github.com/CESNET/Netopeer2.git
+git clone -b v0.7-r1 https://github.com/CESNET/Netopeer2.git
+cp Packaging.cmake PackagingNetopeer.cmake Netopeer2/CMakeModules/
+cd Netopeer2; git apply ../netopeer2.diff
+mkdir -p build
+cd build
+cmake -D CMAKE_BUILD_TYPE:String="Release" \
+      -DCMAKE_INSTALL_PREFIX:PATH=/usr -DENABLE_BUILD_TESTS=OFF .. 
+make package
+cd../../
