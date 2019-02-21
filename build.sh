@@ -42,10 +42,12 @@ cmake -D CMAKE_BUILD_TYPE:String="Release" \
 make package
 
 git clone -b v0.12-r1 https://github.com/CESNET/libnetconf2.git
-cp Packaging.cmake libnetconf2/CMakeModules/
+cp Packaging.cmake PackagingLibNetconf.cmake libnetconf2/CMakeModules/
 cd libnetconf2; git apply ../libnetconf2.diff
 mkdir -p build
 cd build
 cmake -D CMAKE_BUILD_TYPE:String="Release" \
       -DCMAKE_INSTALL_PREFIX:PATH=/usr -DENABLE_BUILD_TESTS=OFF .. 
 make package
+
+git clone https://github.com/CESNET/Netopeer2.git
