@@ -40,6 +40,7 @@ cmake -D CMAKE_BUILD_TYPE:String="Release" \
       -DGEN_LANGUAGE_BINDINGS=OFF \
       -DCALL_TARGET_BINS_DIRECTLY=OFF ..
 make package
+cd ../..
 
 git clone -b v0.12-r1 https://github.com/CESNET/libnetconf2.git
 cp Packaging.cmake PackagingLibNetconf.cmake libnetconf2/CMakeModules/
@@ -49,5 +50,6 @@ cd build
 cmake -D CMAKE_BUILD_TYPE:String="Release" \
       -DCMAKE_INSTALL_PREFIX:PATH=/usr -DENABLE_BUILD_TESTS=OFF .. 
 make package
+cd../../
 
 git clone https://github.com/CESNET/Netopeer2.git
