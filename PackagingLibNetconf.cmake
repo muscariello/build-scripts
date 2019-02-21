@@ -23,11 +23,11 @@ set(libnetconf2_DESCRIPTION
 )
 
 set(libnetconf2_DEB_DEPENDENCIES
-    "libyang (>= 0:16)"
+    "libyang (>= 0.16-r3-1), libssh-dev (>= 0.8.0)"
     CACHE STRING "Dependencies for deb/rpm package."
 )
 
 set(libnetconf2_RPM_DEPENDENCIES
-    "libyang (>= 0:16)"
+    "libyang (>= 0.16-r3-1), libssh-dev (>= 0.8.0)"
     CACHE STRING "Dependencies for deb/rpm package."
 )

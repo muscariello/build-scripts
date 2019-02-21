@@ -23,16 +23,12 @@ set(sysrepo_DESCRIPTION
 )
 
 set(sysrepo_DEB_DEPENDENCIES
-    "libpcre3 (>= 2:8.39-9), libev (>= stable_version), libprotobuf-c (>= stable_version), libyang (>= 0.16-r3-1)"
+    "libpcre3 (>= 2:8.39-9), libev4 (>= 1:4.22-1), libprotobuf-c1 (>= 1.2.1-2), libyang (>= 0.16-r3-1)"
     CACHE STRING "Dependencies for deb/rpm package."
 )
 
 set(sysrepo_RPM_DEPENDENCIES
-    "libpcre3-dev (>= stable_version),\
-     llibavl-dev (>= stable_version),\
-     libev-dev (>= stable_version),\
-     libprotobuf-c-dev (>= stable_version),\
-     protobuf-c-compiler (>= stable_version),"
+    "libpcre3 (>= 2:8.39-9), libev4 (>= 1:4.22-1), libprotobuf-c1 (>= 1.2.1-2), libyang (>= 0.16-r3-1)"
     CACHE STRING "Dependencies for deb/rpm package."
 )
 
