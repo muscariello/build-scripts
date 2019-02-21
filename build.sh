@@ -16,7 +16,7 @@
 apt-get update && apt-get install -y \
     git cmake build-essential bison flex \
     libpcre3-dev libev-dev libavl-dev \
-    libprotobuf-c-dev protobuf-c-compiler libssh \
+    libprotobuf-c-dev protobuf-c-compiler libssh-dev \
 
 git clone -b v0.16-r2 https://github.com/CESNET/libyang.git
 cp Packaging.cmake PackagingLibYang.cmake libyang/CMakeModules/
@@ -47,5 +47,5 @@ cd libnetconf2; git apply ../libnetconf2.diff
 mkdir -p build
 cd build
 cmake -D CMAKE_BUILD_TYPE:String="Release" \
-      -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
+      -DCMAKE_INSTALL_PREFIX:PATH=/usr -DENABLE_BUILD_TESTS=OFF .. 
 make package
