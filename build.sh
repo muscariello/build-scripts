@@ -54,6 +54,7 @@ cd../../
 
 git clone -b v0.7-r1 https://github.com/CESNET/Netopeer2.git
 cp Packaging.cmake PackagingNetopeer.cmake Netopeer2/CMakeModules/
+cp CMakeLists-netopeer.txt Netopeer2/CMakeLists.txt
 cd Netopeer2; git apply ../netopeer2.diff
 mkdir -p build
 cd build
