@@ -13,7 +13,7 @@
 
 cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 
-project(fdio-netopeer)
+project(netopeer2)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/CMakeModules")
 
@@ -27,14 +27,14 @@ option(BUILD_NOP_SERVER "Build netopeer server" ON)
 option(BUILD_NOP_CLI "Build netopeer cli" ON)
 
 list(APPEND dir_options
-  BUILD_NOP_KS_DIR
-  BUILD_NOP_SERVER_DIR
-  BUILD_NOP_CLI_DIR
+  BUILD_NOP_KS
+  BUILD_NOP_SERVER
+  BUILD_NOP_CLI
 )
 
-set(BUILD_NOP_KS keystored)
-set(BUILD_NOP_SERVER server)
-set(BUILD_NOP_CLI cli)
+set(BUILD_NOP_KS_DIR keystored)
+set(BUILD_NOP_SERVER_DIR server)
+set(BUILD_NOP_CLI_DIR cli)
 
 ## Add enabled components
 foreach (opt ${dir_options})
