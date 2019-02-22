@@ -52,5 +52,5 @@ foreach(dir ${subdirs})
 endforeach()
 
 include(Packaging)
-include(PackagerNetopeer)
+include(PackagingNetopeer)
 make_packages()
