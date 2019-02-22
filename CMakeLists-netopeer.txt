@@ -51,6 +51,6 @@ foreach(dir ${subdirs})
   add_subdirectory(${dir})
 endforeach()
 
-include(Packager)
-include(PackagerNetopeer)
+include(Packaging)
+include(PackagingNetopeer)
 make_packages()
