@@ -1,30 +1,88 @@
 diff --git a/cli/CMakeLists.txt b/cli/CMakeLists.txt
-index fcd9f1b..d66ac76 100644
+index fcd9f1b..577a43a 100644
 --- a/cli/CMakeLists.txt
 +++ b/cli/CMakeLists.txt
-@@ -69,7 +69,7 @@ if(HAVE_MKSTEMPS)
+@@ -49,7 +49,7 @@ include_directories(${LIBYANG_INCLUDE_DIRS})
+ # dependencies - libnetconf2
+ find_package(LibNETCONF2 REQUIRED)
+ if (NOT LIBNETCONF2_ENABLED_SSH AND NOT LIBNETCONF2_ENABLED_TLS)
+-    message(SEND_ERROR "Missing SSH and TLS support in libnetconf2, CLI requires at least one them to be supported.")
++    message(STATUS "Missing SSH and TLS support in libnetconf2, CLI requires at least one them to be supported.")
+ endif()
+ target_link_libraries(netopeer2-cli ${LIBNETCONF2_LIBRARIES})
+ include_directories(${LIBNETCONF2_INCLUDE_DIRS})
+@@ -69,23 +69,5 @@ if(HAVE_MKSTEMPS)
  endif(HAVE_MKSTEMPS)
  
  # install binary
 -install(TARGETS netopeer2-cli DESTINATION ${CMAKE_INSTALL_BINDIR})
 +install(TARGETS netopeer2-cli DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT netopeer2)
  
- # man -> html
- find_program(ROFF2HTML roff2html)
+-# man -> html
+-find_program(ROFF2HTML roff2html)
+-if("${ROFF2HTML}" STREQUAL "ROFF2HTML-NOTFOUND")
+-    message("roff2html not found, html version of man pages cannot be generated!")
+-else()
+-    add_custom_target(doc ${ROFF2HTML} "${PROJECT_SOURCE_DIR}/doc/${PROJECT_NAME}.1" > "${PROJECT_SOURCE_DIR}/doc/${PROJECT_NAME}.1.html"
+-                      DEPENDS ${PROJECT_SOURCE_DIR}/doc/${PROJECT_NAME}.1)
+-endif()
+-
+-# install doc (man)
+-install(FILES ${PROJECT_SOURCE_DIR}/doc/${PROJECT_NAME}.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
+-
+-# clean cmake cache
+-add_custom_target(cleancache
+-                  COMMAND make clean
+-                  COMMAND find . -iname '*cmake*' -not -name CMakeLists.txt -exec rm -rf {} +
+-                  COMMAND rm -rf Makefile Doxyfile
+-                  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 diff --git a/keystored/CMakeLists.txt b/keystored/CMakeLists.txt
-index 33aec1e..ea0ac86 100644
+index 33aec1e..9760dce 100644
 --- a/keystored/CMakeLists.txt
 +++ b/keystored/CMakeLists.txt
-@@ -153,4 +153,4 @@ add_custom_target(install-scripts-ide
- )
+@@ -77,7 +77,7 @@ if (NOT SR_PLUGINS_DIR)
+     endif()
+ endif()
+ if (NOT SR_PLUGINS_DIR)
+-    message(FATAL_ERROR "Cannot get sysrepo plugins directory due to missing pkg-config, set SR_PLUGINS_DIR manually.")
++    message(STATUS "Cannot get sysrepo plugins directory due to missing pkg-config, set SR_PLUGINS_DIR manually.")
+ endif()
+ 
+ # find programs
+@@ -135,7 +135,7 @@ if (SSH_KEY_INSTALL)
+         find_program(SSH_KEYGEN_EXECUTABLE ssh-keygen)
+     endif()
+     if (NOT SSH_KEYGEN_EXECUTABLE)
+-        message(FATAL_ERROR "Unable to find ssh-keygen, set SSH_KEYGEN_EXECUTABLE manually.")
++        message(STATUS "Unable to find ssh-keygen, set SSH_KEYGEN_EXECUTABLE manually.")
+     endif()
+     install(CODE "
+         set(ENV{SYSREPOCFG} ${SYSREPOCFG_EXECUTABLE})
+@@ -147,10 +147,6 @@ if (SSH_KEY_INSTALL)
+         execute_process(COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/scripts/ssh-key-import.sh)")
+ endif()
+ 
+-add_custom_target(install-scripts-ide
+-    scripts/model-install.sh
+-    scripts/ssh-key-import.sh
+-)
  
  # plugins should be installed into sysrepo plugins dir
 -install(TARGETS keystored DESTINATION ${SR_PLUGINS_DIR})
 +install(TARGETS keystored DESTINATION ${SR_PLUGINS_DIR} COMPONENT netopeer2)
 diff --git a/server/CMakeLists.txt b/server/CMakeLists.txt
-index be34b15..3799791 100755
+index be34b15..f102de3 100755
 --- a/server/CMakeLists.txt
 +++ b/server/CMakeLists.txt
+@@ -145,7 +145,7 @@ include_directories(${LIBYANG_INCLUDE_DIRS})
+ # dependencies - libnetconf2
+ find_package(LibNETCONF2 REQUIRED)
+ if (NOT LIBNETCONF2_ENABLED_SSH)
+-    message(FATAL_ERROR "Missing SSH support in libnetconf2, server requires SSH to be supported.")
++    message(STATUS "Missing SSH support in libnetconf2, server requires SSH to be supported.")
+ endif()
+ target_link_libraries(netopeer2-server ${LIBNETCONF2_LIBRARIES})
+ include_directories(${LIBNETCONF2_INCLUDE_DIRS})
 @@ -168,7 +168,7 @@ if(NP2SRV_ENABLED_URL_CAPABILITY)
  endif()
  
