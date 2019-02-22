@@ -23,7 +23,7 @@ set(netopeer2_DESCRIPTION
 )
 
 set(netopeer2_DEB_DEPENDENCIES
-   "libyang (>= 0.16-r3-1), libnetconf2 (>= 0.12-r1), sysrepo (>= 0.7.7)"
+   "libyang (>= 0.16-r2-1), libnetconf2 (>= 0.12-r1), sysrepo (>= 0.7.7)"
    CACHE STRING "Dependencies for deb/rpm package."
 )
 
