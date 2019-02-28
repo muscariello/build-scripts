@@ -44,7 +44,7 @@ index b50df764..ba284718 100644
 +include(Packaging)
 +make_packages()
 diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
-index 5aba8463..069aadf3 100644
+index 5aba8463..4e23d66c 100644
 --- a/src/CMakeLists.txt
 +++ b/src/CMakeLists.txt
 @@ -122,7 +122,7 @@ target_link_libraries(sysrepoctl sysrepo ${YANG_LIBRARIES})
@@ -54,7 +54,8 @@ index 5aba8463..069aadf3 100644
 -install(TARGETS sysrepo DESTINATION ${CMAKE_INSTALL_LIBDIR})
 -install(TARGETS sysrepo_a DESTINATION ${CMAKE_INSTALL_LIBDIR})
 -install(TARGETS sysrepod sysrepo-plugind sysrepoctl sysrepocfg DESTINATION ${CMAKE_INSTALL_BINDIR})
+-install(DIRECTORY "${PROJECT_SOURCE_DIR}/inc/" DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 +install(TARGETS sysrepo DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT sysrepo)
 +install(TARGETS sysrepo_a DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT sysrepo)
 +install(TARGETS sysrepod sysrepo-plugind sysrepoctl sysrepocfg DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT sysrepo)
- install(DIRECTORY "${PROJECT_SOURCE_DIR}/inc/" DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
++install(DIRECTORY "${PROJECT_SOURCE_DIR}/inc/" DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} COMPONENT sysrepo)

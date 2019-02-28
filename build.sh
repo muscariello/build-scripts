@@ -16,7 +16,7 @@
 apt-get update && apt-get install -y \
     git cmake build-essential bison flex \
     libpcre3-dev libev-dev libavl-dev \
-    libprotobuf-c-dev protobuf-c-compiler libssh-dev \
+    libprotobuf-c-dev protobuf-c-compiler libssh-dev
 
 git clone -b v0.16-r2 https://github.com/CESNET/libyang.git
 cp Packaging.cmake PackagingLibYang.cmake libyang/CMakeModules/
