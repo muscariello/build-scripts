@@ -38,3 +38,29 @@ index 76a059b2..dd61850c 100644
 +include(PackagingLibYang)
 +include(Packaging)
 +make_packages()
+diff --git a/src/extensions/CMakeLists.txt b/src/extensions/CMakeLists.txt
+index e2c18b5e..48885302 100644
+--- a/src/extensions/CMakeLists.txt
++++ b/src/extensions/CMakeLists.txt
+@@ -2,7 +2,7 @@ macro(EXTENSION_PLUGIN PLUGIN_NAME SRCS)
+     add_library(${PLUGIN_NAME} SHARED ${SRCS})
+     set_target_properties(${PLUGIN_NAME} PROPERTIES PREFIX "")
+     target_link_libraries(${PLUGIN_NAME} yang)
+-    install(TARGETS ${PLUGIN_NAME} DESTINATION ${EXTENSIONS_PLUGINS_DIR_MACRO})
++    install(TARGETS ${PLUGIN_NAME} DESTINATION ${EXTENSIONS_PLUGINS_DIR_MACRO} COMPONENT libyang)
+ endmacro(EXTENSION_PLUGIN)
+ 
+ foreach(EXTENSION ${EXTENSIONS_LIST})
+diff --git a/src/user_types/CMakeLists.txt b/src/user_types/CMakeLists.txt
+index 74aae322..e5f67bd7 100644
+--- a/src/user_types/CMakeLists.txt
++++ b/src/user_types/CMakeLists.txt
+@@ -2,7 +2,7 @@ macro(USER_TYPE_PLUGIN PLUGIN_NAME SRCS)
+     add_library(${PLUGIN_NAME} SHARED ${SRCS})
+     set_target_properties(${PLUGIN_NAME} PROPERTIES PREFIX "")
+     target_link_libraries(${PLUGIN_NAME} yang)
+-    install(TARGETS ${PLUGIN_NAME} DESTINATION ${USER_TYPES_PLUGINS_DIR_MACRO})
++    install(TARGETS ${PLUGIN_NAME} DESTINATION ${USER_TYPES_PLUGINS_DIR_MACRO} COMPONENT libyang)
+ endmacro(USER_TYPE_PLUGIN)
+ 
+ foreach(USER_TYPE ${USER_TYPE_LIST})
