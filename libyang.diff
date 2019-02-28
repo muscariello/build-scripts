@@ -1,17 +1,36 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index dc50dc8d..ff978560 100644
+index 76a059b2..dd61850c 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -281,7 +281,7 @@ find_package(PCRE REQUIRED)
+@@ -280,8 +280,8 @@ find_package(PCRE REQUIRED)
  include_directories(${PCRE_INCLUDE_DIRS})
  target_link_libraries(yang ${PCRE_LIBRARIES})
  
 -install(TARGETS yang DESTINATION ${CMAKE_INSTALL_LIBDIR})
+-install(FILES ${headers} ${PROJECT_BINARY_DIR}/src/libyang.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/libyang)
 +install(TARGETS yang DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT libyang)
- install(FILES ${headers} ${PROJECT_BINARY_DIR}/src/libyang.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/libyang)
++install(FILES ${headers} ${PROJECT_BINARY_DIR}/src/libyang.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/libyang COMPONENT libyang)
  
  find_package(PkgConfig)
-@@ -406,3 +406,7 @@ endif(ENABLE_BUILD_TESTS)
+ if(PKG_CONFIG_FOUND)
+@@ -373,13 +373,13 @@ configure_file(${PROJECT_SOURCE_DIR}/src/plugin_config.h.in ${PROJECT_BINARY_DIR
+ # yanglint
+ add_executable(yanglint ${lintsrc})
+ target_link_libraries(yanglint yang)
+-install(TARGETS yanglint DESTINATION ${CMAKE_INSTALL_BINDIR})
+-install(FILES ${PROJECT_SOURCE_DIR}/tools/lint/yanglint.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
++install(TARGETS yanglint DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT libyang)
++install(FILES ${PROJECT_SOURCE_DIR}/tools/lint/yanglint.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1 COMPONENT libyang)
+ 
+ #yangre
+ add_executable(yangre ${resrc})
+ target_link_libraries(yangre yang)
+-install(TARGETS yangre DESTINATION ${CMAKE_INSTALL_BINDIR})
++install(TARGETS yangre DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT libyang)
+ 
+ # yang2yin
+ add_executable(yang2yin ${yang2yinsrc})
+@@ -401,3 +401,7 @@ endif(ENABLE_BUILD_TESTS)
  if(GEN_LANGUAGE_BINDINGS AND GEN_CPP_BINDINGS)
      add_subdirectory(swig)
  endif()

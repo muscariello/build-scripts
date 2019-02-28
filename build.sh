@@ -38,7 +38,7 @@ cmake -D CMAKE_BUILD_TYPE:String="Release" \
       -DCMAKE_INSTALL_PREFIX:PATH=/usr \
       -DBUILD_EXAMPLES:BOOL=FALSE \
       -DGEN_LANGUAGE_BINDINGS=OFF \
-      -DCALL_TARGET_BINS_DIRECTLY=OFF ..
+      -DCALL_TARGET_BINS_DIRECTLY=ON ..
 make package
 make install
 cd ../..
