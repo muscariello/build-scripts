@@ -1,61 +1,32 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index b50df764..ba284718 100644
+index 181387b0..2b8a88fd 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -298,7 +298,7 @@ install (DIRECTORY DESTINATION ${SUBSCRIPTIONS_SOCKET_DIR} DIRECTORY_PERMISSIONS
-     WORLD_READ WORLD_WRITE WORLD_EXECUTE)
+@@ -206,13 +206,13 @@ add_executable(sysrepo-plugind ${SYSREPOPLUGIND_SRC})
+ target_link_libraries(sysrepo-plugind sysrepo dl)
  
- # install plugins directory
--install(DIRECTORY DESTINATION ${PLUGINS_DIR})
-+install(DIRECTORY DESTINATION ${PLUGINS_DIR} COMPONENT sysrepo)
+ # installation
+-install(TARGETS sysrepo DESTINATION ${CMAKE_INSTALL_LIBDIR})
+-install(FILES ${PROJECT_SOURCE_DIR}/src/sysrepo.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
++install(TARGETS sysrepo DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT sysrepo)
++install(FILES ${PROJECT_SOURCE_DIR}/src/sysrepo.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} COMPONENT sysrepo)
+ install(FILES ${PROJECT_SOURCE_DIR}/src/utils/values.h ${PROJECT_SOURCE_DIR}/src/utils/xpath.h
+-        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/sysrepo)
+-install(TARGETS sysrepoctl sysrepocfg sysrepo-plugind DESTINATION ${CMAKE_INSTALL_BINDIR})
++        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/sysrepo COMPONENT sysrepo)
++install(TARGETS sysrepoctl sysrepocfg sysrepo-plugind DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT sysrepo)
  
- # install internal YANGs
- set(INTERNAL_YANGS
-@@ -306,7 +306,7 @@ set(INTERNAL_YANGS
-     ${PROJECT_SOURCE_DIR}/yang/sysrepo-module-dependencies.yang
-     ${PROJECT_SOURCE_DIR}/yang/sysrepo-notification-store.yang
- )
--install (FILES ${INTERNAL_YANGS} DESTINATION ${INTERNAL_SCHEMA_SEARCH_DIR})
-+install (FILES ${INTERNAL_YANGS} DESTINATION ${INTERNAL_SCHEMA_SEARCH_DIR} COMPONENT sysrepo)
+-install(FILES "${PROJECT_BINARY_DIR}/libsysrepo.pc" DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig")
++install(FILES "${PROJECT_BINARY_DIR}/libsysrepo.pc" DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig" COMPONENT sysrepo)
  
- # install NACM YANG module
- if(ENABLE_NACM)
-@@ -321,8 +321,8 @@ if(PKG_CONFIG_FOUND)
- endif()
- 
- # install doc (man)
--install(FILES ${PROJECT_SOURCE_DIR}/doc/sysrepoctl.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
--install(FILES ${PROJECT_SOURCE_DIR}/doc/sysrepocfg.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
-+install(FILES ${PROJECT_SOURCE_DIR}/doc/sysrepoctl.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1 COMPONENT sysrepo)
-+install(FILES ${PROJECT_SOURCE_DIR}/doc/sysrepocfg.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1 COMPONENT sysrepo)
- 
- if(WITH_SYSTEMD)
-     # systemd units
-@@ -352,6 +352,9 @@ if(NOT CALL_TARGET_BINS_DIRECTLY)
-             DESTINATION "${INDIRECT_YANG_INSTALL_DIR}"
-             FILES_MATCHING PATTERN "*.yang")
-     set(install_yang_file_name "${CMAKE_CURRENT_BINARY_DIR}/install-yang.sh")
--    install(CODE "file(WRITE \"${install_yang_file_name}\" \"${SH_INSTALL_YANG_CMDS}\")")
--    install(CODE "message(STATUS \"Installation commands were written to ${install_yang_file_name}\")")
-+    install(CODE "file(WRITE \"${install_yang_file_name}\" \"${SH_INSTALL_YANG_CMDS}\")", COMPONENT sysrepo)
-+    install(CODE "message(STATUS \"Installation commands were written to ${install_yang_file_name}\")" COMPONENT sysrepo)
- endif()
+ # doxygen documentation
+ find_package(Doxygen)
+@@ -266,3 +266,7 @@ add_custom_target(sr_clean
+ add_custom_target(uninstall "${CMAKE_COMMAND}" -P "${CMAKE_MODULE_PATH}/uninstall.cmake")
+ add_custom_target(uninstall_with_repo "${CMAKE_COMMAND}" -P "${CMAKE_MODULE_PATH}/uninstall.cmake"
+     COMMAND rm -rf ${REPOSITORY_LOC})
++
 +include(PackagingSysRepo)
 +include(Packaging)
 +make_packages()
-diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
-index 5aba8463..4e23d66c 100644
---- a/src/CMakeLists.txt
-+++ b/src/CMakeLists.txt
-@@ -122,7 +122,7 @@ target_link_libraries(sysrepoctl sysrepo ${YANG_LIBRARIES})
- add_executable(sysrepocfg ${EXECUTABLES_DIR}/sysrepocfg.c)
- target_link_libraries(sysrepocfg sysrepo ${YANG_LIBRARIES})
- 
--install(TARGETS sysrepo DESTINATION ${CMAKE_INSTALL_LIBDIR})
--install(TARGETS sysrepo_a DESTINATION ${CMAKE_INSTALL_LIBDIR})
--install(TARGETS sysrepod sysrepo-plugind sysrepoctl sysrepocfg DESTINATION ${CMAKE_INSTALL_BINDIR})
--install(DIRECTORY "${PROJECT_SOURCE_DIR}/inc/" DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-+install(TARGETS sysrepo DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT sysrepo)
-+install(TARGETS sysrepo_a DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT sysrepo)
-+install(TARGETS sysrepod sysrepo-plugind sysrepoctl sysrepocfg DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT sysrepo)
-+install(DIRECTORY "${PROJECT_SOURCE_DIR}/inc/" DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} COMPONENT sysrepo)
+\ No newline at end of file
