@@ -40,7 +40,9 @@ macro(make_packages)
       OUTPUT_VARIABLE VER
       OUTPUT_STRIP_TRAILING_WHITESPACE
     )
-
+    if (NOT VER)
+      set(VER "v1.0-0-gcafe")
+    endif()
     string(REGEX REPLACE "v(.*)" "\\1;" VER ${VER})
     list(GET VER 0 tag)
 
