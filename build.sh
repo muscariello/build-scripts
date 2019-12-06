@@ -18,7 +18,7 @@ apt-get update && apt-get install -y \
     libpcre3-dev libev-dev libavl-dev \
     libprotobuf-c-dev protobuf-c-compiler libssh-dev
 
-git clone -b devel https://github.com/CESNET/libyang.git
+git clone https://github.com/CESNET/libyang.git --depth 1
 cp Packaging.cmake PackagingLibYang.cmake libyang/CMakeModules/
 cd libyang; git apply ../libyang.diff
 mkdir -p build
@@ -26,10 +26,11 @@ cd build
 cmake -DCMAKE_BUILD_TYPE:String="Release" \
       -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
 make package
+mv *.deb ../../deb
 make install 
 cd ../..
 
-git clone -b devel https://github.com/sysrepo/sysrepo.git
+git clone  https://github.com/sysrepo/sysrepo.git --depth 1
 cp Packaging.cmake PackagingSysRepo.cmake sysrepo/CMakeModules/
 cd sysrepo; git apply ../sysrepo.diff
 mkdir -p build
@@ -37,13 +38,13 @@ cd build
 cmake -D CMAKE_BUILD_TYPE:String="Release" \
       -DCMAKE_INSTALL_PREFIX:PATH=/usr \
       -DBUILD_EXAMPLES:BOOL=FALSE \
-      -DGEN_LANGUAGE_BINDINGS=OFF \
-      -DCALL_TARGET_BINS_DIRECTLY=ON ..
+      -DGEN_LANGUAGE_BINDINGS=OFF ..
 make package
+mv *.deb ../../deb
 make install
 cd ../..
 
-git clone -b devel https://github.com/CESNET/libnetconf2.git
+git clone https://github.com/CESNET/libnetconf2.git --depth 1
 cp Packaging.cmake PackagingLibNetconf.cmake libnetconf2/CMakeModules/
 cd libnetconf2; git apply ../libnetconf2.diff
 mkdir -p build
@@ -51,16 +52,23 @@ cd build
 cmake -D CMAKE_BUILD_TYPE:String="Release" \
       -DCMAKE_INSTALL_PREFIX:PATH=/usr -DENABLE_BUILD_TESTS=OFF .. 
 make package
+mv *.deb ../../deb
 make install
 cd ../../
 
-git clone -b devel https://github.com/CESNET/Netopeer2.git
+git clone https://github.com/CESNET/Netopeer2.git --depth 1
 cp Packaging.cmake PackagingNetopeer.cmake Netopeer2/CMakeModules/
-cp CMakeLists-netopeer.txt Netopeer2/CMakeLists.txt
 cd Netopeer2; git apply ../netopeer2.diff
-mkdir -p build
-cd build
-cmake -D CMAKE_BUILD_TYPE:String="Release" \
-      -DCMAKE_INSTALL_PREFIX:PATH=/usr -DENABLE_BUILD_TESTS=OFF -DSR_PLUGINS_DIR=/usr/lib/x86_64-linux-gnu/sysrepo/plugins .. 
+mkdir -p build-server
+cd build-server
+cmake -DCMAKE_BUILD_TYPE:String="Release" -DCMAKE_INSTALL_PREFIX:PATH=/usr \
+      -DENABLE_BUILD_TESTS=OFF ../server
 make package
+mv *.deb ../../deb
+cd ..
+mkdir -p build-cli
+cd build-cli      
+cmake -DCMAKE_BUILD_TYPE:String="Release" -DCMAKE_INSTALL_PREFIX:PATH=/usr ../cli
+make package
+mv *.deb ../../deb
 cd ../../
