@@ -18,7 +18,7 @@ apt-get update && apt-get install -y \
     libpcre3-dev libev-dev libavl-dev \
     libprotobuf-c-dev protobuf-c-compiler libssh-dev
 
-git clone https://github.com/CESNET/libyang.git --depth 1
+git clone https://github.com/CESNET/libyang.git -b devel --depth 1
 cp Packaging.cmake PackagingLibYang.cmake libyang/CMakeModules/
 cd libyang; git apply ../libyang.diff
 mkdir -p build
@@ -30,7 +30,7 @@ mv *.deb ../../deb
 make install 
 cd ../..
 
-git clone  https://github.com/sysrepo/sysrepo.git --depth 1
+git clone  https://github.com/sysrepo/sysrepo.git -b devel --depth 1
 cp Packaging.cmake PackagingSysRepo.cmake sysrepo/CMakeModules/
 cd sysrepo; git apply ../sysrepo.diff
 mkdir -p build
@@ -44,7 +44,7 @@ mv *.deb ../../deb
 make install
 cd ../..
 
-git clone https://github.com/CESNET/libnetconf2.git --depth 1
+git clone https://github.com/CESNET/libnetconf2.git -b devel  --depth 1
 cp Packaging.cmake PackagingLibNetconf.cmake libnetconf2/CMakeModules/
 cd libnetconf2; git apply ../libnetconf2.diff
 mkdir -p build
@@ -56,7 +56,7 @@ mv *.deb ../../deb
 make install
 cd ../../
 
-git clone https://github.com/CESNET/Netopeer2.git --depth 1
+git clone https://github.com/CESNET/Netopeer2.git -b devel-server --depth 1
 cp Packaging.cmake PackagingNetopeer.cmake Netopeer2/CMakeModules/
 cd Netopeer2; git apply ../netopeer2.diff
 mkdir -p build-server
