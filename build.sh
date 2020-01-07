@@ -13,22 +13,7 @@
 
 #!/bin/bash
 
-apt-get update && apt-get install -y \
-    git cmake build-essential bison flex \
-    libpcre3-dev libev-dev libavl-dev \
-    libprotobuf-c-dev protobuf-c-compiler libssh-dev
 
-git clone https://github.com/CESNET/libyang.git -b devel --depth 1
-cp Packaging.cmake PackagingLibYang.cmake libyang/CMakeModules/
-cd libyang; git apply ../libyang.diff
-mkdir -p build
-cd build
-cmake -DCMAKE_BUILD_TYPE:String="Release" \
-      -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
-make package
-mv *.deb ../../deb
-make install 
-cd ../..
 
 git clone  https://github.com/sysrepo/sysrepo.git -b devel --depth 1
 cp Packaging.cmake PackagingSysRepo.cmake sysrepo/CMakeModules/
