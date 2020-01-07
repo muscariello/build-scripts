@@ -1,4 +1,5 @@
-FROM ubuntu:18.04
+#FROM ubuntu:18.04
+FROM arm64v8/ubuntu:18.04
 
 # Build sysrepo suite
 
